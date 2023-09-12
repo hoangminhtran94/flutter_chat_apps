@@ -20,6 +20,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   var _isLogin = true;
   var _enteredEmail = "";
+  var _enteredUsername = "";
   var _enteredPassword = "";
   File? _selectedImage;
   var _isAuthenticating = false;
@@ -55,7 +56,7 @@ class _AuthScreenState extends State<AuthScreen> {
             .collection('users')
             .doc(userCredential.user!.uid)
             .set({
-          'username': "tobedone",
+          'username': _enteredUsername,
           "email": _enteredEmail,
           'image_url': imageUrl
         });
@@ -120,6 +121,24 @@ class _AuthScreenState extends State<AuthScreen> {
                                 return null;
                               },
                             ),
+                            if (!_isLogin)
+                              TextFormField(
+                                enableSuggestions: false,
+                                decoration: const InputDecoration(
+                                  label: Text("Username:"),
+                                ),
+                                onSaved: (newValue) {
+                                  _enteredUsername = newValue!;
+                                },
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.trim().isEmpty ||
+                                      value.length < 4) {
+                                    return 'Please enter a valid username (min length is 4)';
+                                  }
+                                  return null;
+                                },
+                              ),
                             TextFormField(
                                 obscureText: true,
                                 decoration: const InputDecoration(

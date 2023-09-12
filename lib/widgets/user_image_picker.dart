@@ -33,14 +33,14 @@ class _UserImagePickerState extends State<UserImagePicker> {
     return Column(
       children: [
         CircleAvatar(
-          radius: 40,
-          backgroundColor: Colors.grey,
+          radius: 60,
+          backgroundColor: Colors.grey.withOpacity(0.2),
           foregroundImage:
               _pickedImageFile != null ? FileImage(_pickedImageFile!) : null,
           child: _pickedImageFile == null
               ? const Icon(
                   Icons.image,
-                  color: Color.fromRGBO(255, 255, 255, 0.5),
+                  color: Colors.black26,
                 )
               : null,
         ),
